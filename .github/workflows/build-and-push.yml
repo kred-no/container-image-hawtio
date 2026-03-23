@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        image_prefix: 25-jre
+        target_prefix: 25-jre
         build_image:
           - docker.io/alpine:3
         runtime_image:
@@ -76,7 +76,7 @@ jobs:
           images: |
             registry.hub.docker.com/kdsda/hawtio
           flavor: |
-            prefix=${{ env.image_prefix }}
+            prefix=${{ matrix.target_prefix }}
           tags: |
             type=schedule,pattern={{date 'YYYYMMDD-HHmmss' tz='Europe/Oslo'}}
             type=ref,event=branch
@@ -94,7 +94,7 @@ jobs:
           #secrets: |
           #  "example_secret=${{ secrets.SOME_SECRET }}"
           build-args: |
-            builder_image=${{ env.builder_image }}
+            builder_image=${{ matrix.builder_image }}
             runtime_image=${{ matrix.runtime_image }}
             hawtio_app_version=${{ matrix.hawtio_app_version }}
           push: true
