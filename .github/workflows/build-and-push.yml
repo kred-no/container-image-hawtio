@@ -28,13 +28,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        target_prefix: 25-jre
-        build_image:
-          - docker.io/alpine:3
-        runtime_image:
-          - docker.io/eclipse-temurin:25-jre
-        hawtio_app_version:
-          - '2.17.7'
+        target_prefix: ['25-jre']
+        build_image: ['docker.io/alpine:3']
+        runtime_image: ['docker.io/eclipse-temurin:25-jre']
+        hawtio_app_version: ['2.17.7']
         #include:
         #  - build_image: xx
         #    runtime_image: yy
