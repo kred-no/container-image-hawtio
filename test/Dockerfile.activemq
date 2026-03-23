@@ -1,0 +1,21 @@
+# ======================
+# BUILDER
+# ======================
+
+FROM docker.io/alpine:3 AS builder
+RUN set -ex \
+  && apk --no-cache add curl unzip
+
+RUN set -ex \
+  && mkdir -p /exports \
+  && curl -L https://repo1.maven.org/maven2/org/jolokia/jolokia-jvm/1.7.2/jolokia-jvm-1.7.2.jar -o /exports/jolokia-jvm.jar \
+  && curl -L https://repo1.maven.org/maven2/org/jolokia/jolokia-jvm/1.6.2/jolokia-jvm-1.6.2-agent.jar -o /exports/jolokia-jvm-agent.jar
+
+# ======================
+# RUNTIME
+# ======================
+
+FROM docker.io/apache/activemq-classic:6.2.0
+
+COPY --from=builder ["/exports/jolokia-jvm.jar", "/opt/activemq/lib/jolokia-jvm.jar"]
+COPY --from=builder ["/exports/jolokia-jvm-agent.jar", "/opt/activemq/lib/jolokia-jvm-agent.jar"]
