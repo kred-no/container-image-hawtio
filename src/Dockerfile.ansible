@@ -46,10 +46,7 @@ PLAYBOOK
 
 RUN set -ex \
   && ansible-playbook -i localhost, /playbook.yml \
-  --extra-vars="activemq_version=${activemq_version}" \
-  --extra-vars="hawtio_agent_version=${hawtio_agent_version}" \
-  --extra-vars="hawtio_version=${hawtio_version}" \
-  --extra-vars="postgres_version=${postgres_version}"
+  --extra-vars="hawtio_version=${hawtio_agent_version}" \
 
 # ----------------------
 # Runtime Image
