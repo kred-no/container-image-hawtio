@@ -6,7 +6,7 @@ This repository contains a Docker image for running [Hawtio](https://hawt.io/), 
 ## Usage
 
 Run the Hawtio container image with default config.
-Access Hawtio at [http://localhost:8080/hawtio](http://localhost:8080/hawtio).
+Access Hawtio at [http://localhost:8080/hawtio-default](http://localhost:8080/hawtio-default).
 
 ```bash
 # Run from registry image
