@@ -59,7 +59,7 @@ jobs:
           images: |
             registry.hub.docker.com/kdsda/hawtio
           flavor: |
-            prefix=${{ matrix.versions.hawtio }}-tomcat-${{ matrix.runtime }}-
+            prefix=${{ matrix.versions.hawtio }}-tomcat-${{ matrix.versions.runtime }}-
           tags: |
             type=schedule,pattern={{date 'YYYYMMDD-HHmmss' tz='Europe/Oslo'}}
             type=ref,event=branch
@@ -77,7 +77,7 @@ jobs:
           #secrets: |
           #  "example_secret=${{ secrets.SOME_SECRET }}"
           build-args: |
-            builder_image=${{ env.build_image }}:${{ matrix.versions.builder }}
-            runtime_image=${{ env.build_image }}:${{ matrix.versions.build }}
+            builder_image=${{ env.builder_image }}:${{ matrix.versions.builder }}
+            runtime_image=${{ env.runtime_image }}:${{ matrix.versions.runtime }}
             hawtio_version=${{ matrix.versions.hawtio }}
           push: true
