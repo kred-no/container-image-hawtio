@@ -8,8 +8,7 @@ RUN set -ex \
 
 RUN set -ex \
   && mkdir -p /exports \
-  && curl -L https://repo1.maven.org/maven2/org/jolokia/jolokia-jvm/1.7.2/jolokia-jvm-1.7.2.jar -o /exports/jolokia-jvm.jar \
-  && curl -L https://repo1.maven.org/maven2/org/jolokia/jolokia-jvm/1.6.2/jolokia-jvm-1.6.2-agent.jar -o /exports/jolokia-jvm-agent.jar
+  && curl -L https://repo1.maven.org/maven2/org/jolokia/jolokia-jvm/1.7.2/jolokia-jvm-1.7.2.jar -o /exports/jolokia-jvm.jar
 
 # ======================
 # RUNTIME
@@ -18,4 +17,3 @@ RUN set -ex \
 FROM docker.io/apache/activemq-classic:6.2.0
 
 COPY --from=builder ["/exports/jolokia-jvm.jar", "/opt/activemq/lib/jolokia-jvm.jar"]
-COPY --from=builder ["/exports/jolokia-jvm-agent.jar", "/opt/activemq/lib/jolokia-jvm-agent.jar"]

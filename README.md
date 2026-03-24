@@ -1,5 +1,5 @@
 # container-image-hawtio
-![Build Status](https://github.com/kred-no/container-image-hawtio/actions/workflows/build-and-push.yml/badge.svg?branch=main)
+![Build Status](https://github.com/kred-no/container-image-hawtio/actions/workflows/tomcat-build.yml/badge.svg?branch=main)
 
 This repository contains a Docker image for running [Hawtio](https://hawt.io/), a web-based management console for Java applications.
 
@@ -23,7 +23,7 @@ docker compose -f compose up
 
 | Name | Default |
 | --:  | :--     |
-| JAVA_OPTS | `-Dhawtio.proxyAllowlist=* -Dhawtio.remote.name=activemq -Dhawtio.remote.host=activemq -Dhawtio.remote.port=8778 -Dhawtio.remote.path=jolokia` |
+| CATALINA_OPTS     | `-Dhawtio.authenticationEnabled=false -Dhawtio.proxyAllowlist=*` |
 | JAVA_TOOL_OPTIONS | `-XX:+ExitOnOutOfMemoryError -XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -XX:+UseStringDeduplication -XX:MaxGCPauseMillis=500 -XX:+PerfDisableSharedMem -Xss512k -Xshare:on -Xlog:gc*:stdout:uptime,level,tags` |
 
 ## License
