@@ -10,12 +10,10 @@ FROM $builder_image AS builder
 ARG hawtio_version="5.0.1"
 
 COPY <<PLAYBOOK playbook.yml
-- name: ActiveMQ Ansible Builder
+- name: Ansible Builder
   hosts: localhost
   connection: local
   gather_facts: false
-  vars:
-    export_folder: /export
   tasks:
     -
       name: install required packages
@@ -26,18 +24,11 @@ COPY <<PLAYBOOK playbook.yml
           - tar
         state: present
     -
-      name: create export folder
-      become: true
-      ansible.builtin.file:
-        path: "{{ export_folder }}"
-        state: directory
-        mode: '0755'
-    -
       name: download hawtio
       ansible.builtin.get_url:
         url: "https://github.com/hawtio/hawtio/releases/download/hawtio-${hawtio_version}/hawtio-default-${hawtio_version}.war"
         checksum: "md5:https://github.com/hawtio/hawtio/releases/download/hawtio-${hawtio_version}/hawtio-default-${hawtio_version}.war.md5"
-        dest: "/tmp/hawtio.war"
+        dest: "/tmp/hawtio-default.war"
       register: download_result
       until: download_result is succeeded
       retries: 3
@@ -60,5 +51,5 @@ RUN set -ex \
 ENV JAVA_TOOL_OPTIONS="-XX:+ExitOnOutOfMemoryError -XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -XX:+UseStringDeduplication -XX:MaxGCPauseMillis=500 -XX:+PerfDisableSharedMem -Xss512k -Xshare:on -Xlog:gc*:stdout:uptime,level,tags"
 ENV CATALINA_OPTS="-Dhawtio.authenticationEnabled=false -Dhawtio.proxyAllowlist=*"
 
-COPY --from=builder ["/export/hawtio.war", "/usr/local/tomcat/webapps/hawtio.war"]
+COPY --from=builder ["/tmp/hawtio-default.war", "/usr/local/tomcat/webapps/hawtio-default.war"]
 EXPOSE 8080
