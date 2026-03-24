@@ -28,7 +28,7 @@ jobs:
         versions:
           - builder: '2.20.0'
             runtime: 'jre25-temurin'
-            hawtio: '2.17.7'
+            hawtio: '5.0.1'
         exclude: []
         include: []
     

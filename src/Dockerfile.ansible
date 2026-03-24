@@ -18,7 +18,7 @@ COPY <<PLAYBOOK playbook.yml
     export_folder: /export
   tasks:
     -
-      name: Install required packages
+      name: install required packages
       become: true
       ansible.builtin.package:
         name:
@@ -26,7 +26,7 @@ COPY <<PLAYBOOK playbook.yml
           - tar
         state: present
     -
-      name: Create Export Folder
+      name: create export folder
       become: true
       ansible.builtin.file:
         path: "{{ export_folder }}"
